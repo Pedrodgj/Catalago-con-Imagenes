@@ -1,6 +1,6 @@
-const res = require('express/lib/response');
 const Producto = require('../models/producto');
 const Tipo = require('../models/tipo')
+const Usuario = require ('../models/usuario')
 const fs = require('fs');
 
 
@@ -21,10 +21,6 @@ const nombreExiste = async ( nombre = '' ) => {
 
 const productoExistById = async ( id = '') => {
     
-    /* const borrarFs = (req, res) => {
-        fs.unlinkSync(req.file.path)
-        console.log(req.file);
-    } */
     
     const IdExist = await Producto.findById(id);
         if( !IdExist ) {
@@ -32,9 +28,19 @@ const productoExistById = async ( id = '') => {
         }   
 }
 
+const emailExiste = async ( email = '' ) => {
+    
+    const existeEmail = await Usuario.findOne({email});
+    //console.log(existeEmail);
+        if( existeEmail ) {
+            throw new Error (`El correo ${email} ya esta registrado en la Base de Datos`)    
+        }   
+}
+
 
 module.exports = {
     tipoValido, 
     nombreExiste,
-    productoExistById
+    productoExistById, 
+    emailExiste
 }

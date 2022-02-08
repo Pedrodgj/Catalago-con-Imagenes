@@ -6,12 +6,14 @@ const { productosPost, productosGet, productosPut, productosDelete } = require('
 const { tipoValido, nombreExiste, productoExistById } = require('../helpers/db_validator');
 
 const { validarCampos } = require('../middlewares/validar_campos');
+const { validarJWT } = require('../middlewares/validar_jwt');
 
 const routes = Router();
 
 routes.get('/', productosGet)
 
 routes.post('/agregarProducto', [
+    validarJWT,
     check('nombre', 'El Nombre es obligatorio').not().isEmpty(),
     check('nombre').custom(nombreExiste),
     check('descripcion', 'La Descripcion es obligatoria').not().isEmpty(),
@@ -20,6 +22,7 @@ routes.post('/agregarProducto', [
 ], productosPost)
 
 routes.put('/cambiarProducto/:id', [
+    validarJWT,
     check('id', 'No es un ID valido').isMongoId(),
     check('id').custom(productoExistById),
     check('nombre', 'El Nombre es obligatorio').not().isEmpty(),
@@ -29,6 +32,7 @@ routes.put('/cambiarProducto/:id', [
 ], productosPut)
 
 routes.delete('/eliminarProducto/:id', [
+    validarJWT,
     check('id', 'No es un ID valido').isMongoId(),
     check('id').custom(productoExistById),
     validarCampos

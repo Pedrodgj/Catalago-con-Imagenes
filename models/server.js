@@ -19,6 +19,8 @@ class Server {
         //las rutas
         this.productosPath = '/api/productos';
         this.uploadsPath = '/api/uploads';
+        this.authPath = '/api/auth';
+        this.usuarioPath = '/api/usuario';
 
         //middlewares
         this.middlewares()
@@ -47,15 +49,6 @@ class Server {
             filename: (req, file, cb) => {
                 cb(null, uuidv4() + path.extname(file.originalname))
             },
-            /* fileFilter: (req, file, cb) => {
-                const filetypes = /jpeg|jpg|png|gif/;
-                const mimetype = filetypes.test(file.mimetype);
-                const extname = filetypes.test(path.extname(file.originalname));
-                if(mimetype && extname) {
-                    return cb(null, true)
-                }
-                cb('Error: Archivo debe ser una imagen valida')
-            } */
         })
         this.app.use(multer({storage}).single('imagen'))
 
@@ -67,6 +60,8 @@ class Server {
     routes() {
         this.app.use(this.productosPath, require('../routes/productos'))
         this.app.use(this.uploadsPath, require('../routes/uploads'))
+        this.app.use(this.authPath, require('../routes/auth'))
+        this.app.use(this.usuarioPath, require('../routes/usuario'))
     }
 
     listen() {

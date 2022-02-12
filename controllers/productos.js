@@ -5,9 +5,11 @@ const Producto = require('../models/producto')
 const productosGet = async(req, res = response) => {
     
     const productos = await Producto.find({estado: true})
+
+    let productosAleatorios = productos.sort(() => {return Math.random() - 0.5});
     
     res.json({
-        productos
+        productosAleatorios
     })
 }
 

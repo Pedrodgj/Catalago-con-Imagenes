@@ -37,13 +37,11 @@ const validarJWT = async(req = request, res = response, next) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(401).json({
-            msg: vaciarUploads(req, res, 'Token no valido')
-        })
+        
+        return vaciarUploads(req, res, 401, 'Token no valido')
     }
-
 }
 
 module.exports = {
     validarJWT
-}
+};

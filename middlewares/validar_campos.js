@@ -2,7 +2,7 @@ const { validationResult } = require("express-validator");
 const fs = require('fs');
 
 const validarCampos = (req, res, next) => {
-    errors = validationResult(req);
+    const errors = validationResult(req);
     if(!errors.isEmpty()) {
         if(req.file === undefined) {
             return res.status(400).json(errors);

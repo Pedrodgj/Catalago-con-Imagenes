@@ -8,7 +8,7 @@ const productosGet = async(req, res = response) => {
 
     let productosAleatorios = productos.sort(() => {return Math.random() - 0.5});
     
-    res.json({
+    res.status(200).json({
         productosAleatorios
     })
 }
@@ -20,7 +20,7 @@ const productosPost = async(req = request, res = response) => {
     
     await producto.save()
     
-    res.json({
+    res.status(200).json({
         producto        
     })
 }

@@ -30,7 +30,7 @@ const subirImagen = async(req, res) => {
 
         if(!producto.estado) {
             
-            return vaciarUploads(req, res, 400, 'No se encuentra el usuario' )
+            return vaciarUploads(req, res, 400, 'No se encuentra el producto' )
             
         }
         
